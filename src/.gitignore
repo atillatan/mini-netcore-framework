@@ -1,0 +1,36 @@
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+.vs/
+.vscode/
+bin/
+**/bin/
+**/**/bin/
+obj/
+**/obj/
+**/**/obj/
+
+/node_modules
+**/node_modules
+
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Log Files
+*.log
+

@@ -1,0 +1,188 @@
+<div class="content">
+  <div class="">	
+    <div class="row">
+      <div class="margin-bottom-30" style="width:100%">
+        <!-- BEGIN Portlet PORTLET-->
+        <div class="portlet portlet-bordered" style="width:100%">
+          <div class="portlet-title">
+            <div class="caption caption-red">
+              <i class="glyphicon glyphicon-cog"></i>
+              <span class="caption-subject text-uppercase"><strong><b>{{'Languages' | translate}}</b></strong></span>
+              <span class="caption-helper">&nbsp;&nbsp;{{'Dil değerleri yönetimi' | translate}}...</span>
+            </div>
+            <div class="actions">
+              <a href="javascript:;" class="btn btn-red btn-circle" style="padding: 5px 5px;" (click)= "entryVisibility = !entryVisibility; searchVisibility = false;"
+                title="{{'Edit / Add' | translate}}">
+                <i class="material-icons" style="font-size: 16px;">add</i>
+              </a>
+              <a href="javascript:;" class="btn btn-red btn-circle" style="padding: 5px 5px;" (click)= "searchVisibility = !searchVisibility; entryVisibility = false;"
+                title="{{'Search' | translate}}">
+                  <i class="material-icons" style="font-size: 16px;">search</i>
+              </a>
+              <a href="javascript:;" class="btn btn-red btn-circle" style="padding: 5px 5px;" 
+                title="{{'Search' | translate}}">
+                  <i class="material-icons" style="font-size: 16px;">help_outline</i>
+              </a>
+            </div>
+          </div>
+          <!-- BEGIN Portlet EDIT -->
+          <div class="portlet portlet-bordered portlet-gray margin-bottom-10" [hidden]="!entryVisibility">
+            <div class="portlet-title">
+              <div class="caption caption-red">
+                <i class="glyphicon glyphicon-cog"></i>
+                <span class="caption-subject text-uppercase">{{'Edit / New Item' | translate}}</span>
+                <span class="caption-helper">&nbsp;&nbsp;{{'Kayıt ekleme / güncelleme' | translate}}...</span>
+              </div>              
+            </div>
+            <div class="portlet-body">
+               <!-- Entry -->
+              <form (ngSubmit)="postOrPut()">
+                <div class="w3-white w3-padding">
+                  <!-- form-group separator -->
+                  <div style="display:flex; flex-direction: column;">
+                    <mat-form-field>
+                      <input matInput type="text" placeholder="{{'Key' | translate}}" [(ngModel)]="entryDto.Key" name="Key" id="Key" />
+                      <button mat-button *ngIf="entryDto.Key" matSuffix mat-icon-button aria-label="Clear" (click)="entryDto.Key=''">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                  <!-- form-group separator -->
+                  <div style="display:flex; flex-direction: column;">
+                    <mat-form-field>
+                      <input matInput type="text" placeholder="{{'Val' | translate}}" [(ngModel)]="entryDto.Val" name="Val" id="Val" />
+                      <button mat-button *ngIf="entryDto.Val" matSuffix mat-icon-button aria-label="Clear" (click)="entryDto.Val=''">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                  <!-- form-group separator -->
+                  <div style="display:flex; flex-direction: column;">
+                    <mat-form-field>
+                      <input matInput type="text" placeholder="{{'Language Code' | translate}}" [(ngModel)]="entryDto.LanguageCode" name="Value"
+                        id="LanguageCode" />
+                      <button mat-button *ngIf="entryDto.LanguageCode" matSuffix mat-icon-button aria-label="Clear" (click)="entryDto.LanguageCode=''">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <!-- form-group separator -->
+                <div style="text-align: right;">
+                  <button type="submit" mat-button matTooltip="{{'Save' | translate}}" mat-icon-button color="primary" >                  
+                    <mat-icon>save</mat-icon>
+                  </button>&nbsp;
+                  <button mat-button matTooltip="{{'Clear' | translate}}" mat-icon-button (click)="resetEntry()">
+                      <mat-icon>cancel</mat-icon>
+                  </button>
+                </div>
+              </form>
+              <!-- Entry -->
+            </div>
+          </div>
+          <!-- END Portlet EDIT-->
+
+          <!-- BEGIN Portlet SEARCH -->
+          <div class="portlet portlet-bordered portlet-gray margin-bottom-10" [hidden]="!searchVisibility">
+            <div class="portlet-title">
+              <div class="caption caption-red">
+                <i class="glyphicon glyphicon-cog"></i>
+                <span class="caption-subject text-uppercase">{{'Search' | translate}}</span>
+                <span class="caption-helper">&nbsp;&nbsp;{{'Search Item with Detailed' | translate}}...</span>
+              </div>              
+            </div>
+            <div class="portlet-body">
+                <form (ngSubmit)="list()">
+                  <div class="w3-white w3-padding">
+                      <!-- form-group separator -->
+                      <div style="display:flex; flex-direction: column;">
+                        <mat-form-field>
+                          <input matInput type="text" placeholder="{{'Key' | translate}}" [(ngModel)]="searchDto.Key" name="Key" id="Key" />
+                          <button mat-button *ngIf="searchDto.Key" matSuffix mat-icon-button aria-label="Clear" (click)="searchDto.Key=''">
+                            <mat-icon>close</mat-icon>
+                          </button>
+                        </mat-form-field>
+                      </div>
+                      <!-- form-group separator -->
+                      <div style="display:flex; flex-direction: column;">
+                        <mat-form-field>
+                          <input matInput type="text" placeholder="{{'Val' | translate}}" [(ngModel)]="searchDto.Val" name="Val" id="Val" />
+                          <button mat-button *ngIf="searchDto.Val" matSuffix mat-icon-button aria-label="Clear" (click)="searchDto.Val=''">
+                            <mat-icon>close</mat-icon>
+                          </button>
+                        </mat-form-field>
+                      </div>
+                      <!-- form-group separator -->
+                      <div style="display:flex; flex-direction: column;">
+                        <mat-form-field>
+                          <input matInput type="text" placeholder="{{'Language Code' | translate}}" [(ngModel)]="searchDto.LanguageCode" name="Value"
+                            id="LanguageCode" />
+                          <button mat-button *ngIf="searchDto.LanguageCode" matSuffix mat-icon-button aria-label="Clear" (click)="searchDto.LanguageCode=''">
+                            <mat-icon>close</mat-icon>
+                          </button>
+                        </mat-form-field>
+                      </div>
+                  </div>
+                  <!-- form-group separator -->
+                  <div style="text-align: right;">
+                    <button type="submit" mat-button matTooltip="{{'Search' | translate}}" mat-icon-button color="primary" >                  
+                      <mat-icon>search</mat-icon>
+                    </button>
+                  </div>
+                </form>   
+            </div>
+          </div>
+          <!-- END Portlet SEARCH-->
+          <!-- BEGIN Portlet Body LIST -->
+          <div class="portlet-body">
+            <div class="notranslate" >
+              <!-- List -->            
+              <mat-form-field style="width:100%">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'Filter' | translate}}">
+              </mat-form-field>
+              <mat-table [dataSource]="dtoList" matSort >
+                <!-- Key Column -->
+                <ng-container matColumnDef="Key">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Key' | translate}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.Key}} </mat-cell>
+                </ng-container>
+                <!-- Value Column -->
+                <ng-container matColumnDef="Val">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Value' | translate}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.Val}} </mat-cell>
+                </ng-container>
+                <!-- Language Code Column -->
+                <ng-container matColumnDef="LanguageCode">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Language Code' | translate}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.LanguageCode}} </mat-cell>
+                </ng-container>
+            
+                <!-- Actions Column -->
+                <ng-container matColumnDef="Actions">
+                  <mat-header-cell *matHeaderCellDef>{{'Actions' | translate}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element"> 
+                      <button mat-button matTooltip="{{'Edit Row' | translate}}" color="primary" (click)="get(element);">
+                        <i class="material-icons">border_color</i>
+                      </button>
+                      &nbsp;
+                      <button mat-button matTooltip="{{'Delete Row' | translate}}" (click)="openDialog(element)">
+                        <i class="material-icons">cancel</i>
+                      </button>
+                  </mat-cell>
+                </ng-container>
+            
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+          
+              <!-- List -->
+              <mat-paginator [length]="pagingDto.count" [pageSize]="pagingDto.pageSize" [pageSizeOptions]="[10, 15, 20, 50]" (page)="changePage($event)">
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+        <!-- END Portlet Body LIST-->
+      </div>
+    </div>
+  </div>
+</div>

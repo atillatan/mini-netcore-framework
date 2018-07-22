@@ -1,0 +1,186 @@
+<!-- <div class="container"> -->
+    <div class="w3-example">
+        <div class="trytopnav">
+          <div class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto">
+            <h3 class="w3-left" style="margin: 3px 0">{{'Languages' | translate}}</h3>
+            <a href="javascript:void(0);" title="{{'Help' | translate}}" class="w3-right w3-button w3-bar-item topnav-icons fa" 
+                style="font-size:28px;color:#999999;margin-top: 0px; padding: 3px 16px !important;">
+                <i class="material-icons">help</i>
+            </a>
+            <a href="javascript:void(0);" title="{{'Edit' | translate}}" class="w3-right w3-button w3-bar-item topnav-icons fa" 
+                style="font-size:28px;color:#999999;margin-top: 0px; padding: 3px 16px !important;"
+                (click)= "entryVisibility = !entryVisibility; searchVisibility = false;">
+              <i class="material-icons">edit</i>
+            </a>
+            <a href="javascript:void(0);" title="{{'Search' | translate}}" class="w3-right w3-button w3-bar-item topnav-icons fa" 
+                style="font-size:28px;color:#999999;margin-top: 0px; padding: 3px 16px !important;"
+                (click)= "searchVisibility = !searchVisibility; entryVisibility = false;">
+                <i class="material-icons">search</i>
+            </a>                           
+          </div>          
+        </div>
+        <div class="w3-padding mat-elevation-z8 notranslate" style="width:100%" style="margin-bottom: 10px;" [hidden]="!searchVisibility" >
+            <h4>{{'Search Operations' | translate}}</h4>
+          <!-- Search Entry -->          
+          <form (ngSubmit)="list()">
+            <div class="w3-white w3-padding">
+                <!-- form-group separator -->
+                <div style="display:flex; flex-direction: column;">
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="{{'Key' | translate}}" [(ngModel)]="searchDto.Key" name="Key" id="Key" />
+                    <button mat-button *ngIf="searchDto.Key" matSuffix mat-icon-button aria-label="Clear" (click)="searchDto.Key=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+                <!-- form-group separator -->
+                <div style="display:flex; flex-direction: column;">
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="{{'Val' | translate}}" [(ngModel)]="searchDto.Val" name="Val" id="Val" />
+                    <button mat-button *ngIf="searchDto.Val" matSuffix mat-icon-button aria-label="Clear" (click)="searchDto.Val=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+                <!-- form-group separator -->
+                <div style="display:flex; flex-direction: column;">
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="{{'Language Code' | translate}}" [(ngModel)]="searchDto.LanguageCode" name="Value"
+                      id="LanguageCode" />
+                    <button mat-button *ngIf="searchDto.LanguageCode" matSuffix mat-icon-button aria-label="Clear" (click)="searchDto.LanguageCode=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+            </div>
+            <!-- form-group separator -->
+            <div style="text-align: right;">
+              <button type="submit" mat-button matTooltip="{{'Search' | translate}}" mat-icon-button color="primary" >                  
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+          </form>          
+          <!-- Entry -->
+        </div>
+        <div class="w3-padding mat-elevation-z8 notranslate" style="width:100%" style="margin-bottom: 10px;" [hidden]="!entryVisibility">
+          <h4>{{'Data Operations' | translate}}</h4>
+          <!-- Entry -->
+          <form (ngSubmit)="postOrPut()">
+            <div class="w3-white w3-padding">
+              <!-- form-group separator -->
+              <div style="display:flex; flex-direction: column;">
+                <mat-form-field>
+                  <input matInput type="text" placeholder="{{'Key' | translate}}" [(ngModel)]="entryDto.Key" name="Key" id="Key" />
+                  <button mat-button *ngIf="entryDto.Key" matSuffix mat-icon-button aria-label="Clear" (click)="entryDto.Key=''">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+              <!-- form-group separator -->
+              <div style="display:flex; flex-direction: column;">
+                <mat-form-field>
+                  <input matInput type="text" placeholder="{{'Val' | translate}}" [(ngModel)]="entryDto.Val" name="Val" id="Val" />
+                  <button mat-button *ngIf="entryDto.Val" matSuffix mat-icon-button aria-label="Clear" (click)="entryDto.Val=''">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+              <!-- form-group separator -->
+              <div style="display:flex; flex-direction: column;">
+                <mat-form-field>
+                  <input matInput type="text" placeholder="{{'Language Code' | translate}}" [(ngModel)]="entryDto.LanguageCode" name="Value"
+                    id="LanguageCode" />
+                  <button mat-button *ngIf="entryDto.LanguageCode" matSuffix mat-icon-button aria-label="Clear" (click)="entryDto.LanguageCode=''">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- form-group separator -->
+            <div style="text-align: right;">
+              <button type="submit" mat-button matTooltip="{{'Save' | translate}}" mat-icon-button color="primary" >                  
+                <mat-icon>save</mat-icon>
+              </button>&nbsp;
+              <button mat-button matTooltip="{{'Clear' | translate}}" mat-icon-button (click)="resetEntry()">
+                  <mat-icon>cancel_presentation</mat-icon>
+              </button>
+            </div>
+          </form>
+          <!-- Entry -->
+        </div>
+        <div class="w3-padding mat-elevation-z8 notranslate" style="width:100%">          
+          <!-- List -->            
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'Filter' | translate}}">
+          </mat-form-field>
+          <mat-table [dataSource]="dtoList" matSort >
+            <!-- Key Column -->
+            <ng-container matColumnDef="Key">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Key' | translate}}</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.Key}} </mat-cell>
+            </ng-container>
+            <!-- Value Column -->
+            <ng-container matColumnDef="Val">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Value' | translate}}</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.Val}} </mat-cell>
+            </ng-container>
+            <!-- Language Code Column -->
+            <ng-container matColumnDef="LanguageCode">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Language Code' | translate}}</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.LanguageCode}} </mat-cell>
+            </ng-container>
+      
+            <!-- Actions Column -->
+            <ng-container matColumnDef="Actions">
+              <mat-header-cell *matHeaderCellDef>{{'Actions' | translate}}</mat-header-cell>
+              <mat-cell *matCellDef="let element"> 
+                  <button mat-button matTooltip="{{'Edit Row' | translate}}" color="primary" (click)="get(element);">
+                    <i class="material-icons">border_color</i>
+                  </button>
+                  &nbsp;
+                  <button mat-button matTooltip="{{'Delete Row' | translate}}" (click)="openDialog(element)">
+                    <i class="material-icons">cancel</i>
+                  </button>
+              </mat-cell>
+            </ng-container>
+      
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+      
+          <!-- List -->
+          <mat-paginator [length]="pagingDto.count" [pageSize]="pagingDto.pageSize" [pageSizeOptions]="[10, 15, 20, 50]" (page)="changePage($event)">
+          </mat-paginator>
+        </div>
+        
+        <!-- <a target="_blank" href="tryit.asp?filename=trybs_filters_list&amp;stacked=h" class="w3-btn w3-margin-top w3-margin-bottom">Try it Yourself »</a> -->
+    </div>
+<!-- </div> -->
+
+
+<!-- <thead style="background-color:#b4cff1">
+        <tr>
+          <th>#</th>
+          <th mat-sort-header="Key">{{'Key' | translate}}</th>
+          <th mat-sort-header="Val">{{'Value' | translate}}</th>
+          <th mat-sort-header="LanguageCode">{{'Language Code' | translate}}</th>
+          <th>-</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dto of dtoList; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ dto.Key }}</td>
+          <td>{{ dto.Val }}</td>
+          <td>{{ dto.LanguageCode }}</td>
+          <td>
+            <button type="button" matTooltip="{{'Edit Row' | translate}}" mat-mini-fab color="primary" (click)="get(dto)">
+              <i class="material-icons">border_color</i>
+            </button>
+            &nbsp;
+            <button type="button" matTooltip="{{'Delete Row' | translate}}" mat-mini-fab (click)="openDialog(dto)">
+              <i class="material-icons">cancel</i>
+            </button>
+          </td>
+        </tr>
+      </tbody> -->
