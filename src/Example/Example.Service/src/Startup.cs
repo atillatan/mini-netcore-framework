@@ -2,7 +2,7 @@
  * @Author: Atilla Tanrikulu 
  * @Date: 2018-04-16 10:10:45 
  * @Last Modified by: Atilla Tanrikulu
- * @Last Modified time: 2018-05-02 18:23:32
+ * @Last Modified time: 2018-07-22 19:48:20
  */
 using System;
 using Core.Framework.Middleware;
@@ -32,9 +32,9 @@ namespace Example.Service
 
             Configure();
 
-            LoadDefautlData();
+            LoadDefaultData();
 
-            Log.Info("######  DeviceManager.Service STARTED!  #######");
+            Log.Info("######  Example.Service STARTED!  #######");
         }
 
         public void ConfigureServices()
@@ -69,7 +69,7 @@ namespace Example.Service
             Application.Current.Build();
         }
 
-        public void LoadDefautlData()
+        public void LoadDefaultData()
         {
             Console.ForegroundColor = ConsoleColor.Green;
 

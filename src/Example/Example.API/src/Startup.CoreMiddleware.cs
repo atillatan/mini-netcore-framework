@@ -2,7 +2,7 @@
  * @Author: Atilla Tanrikulu 
  * @Date: 2018-04-16 10:10:45 
  * @Last Modified by: Atilla Tanrikulu
- * @Last Modified time: 2018-04-16 16:03:24
+ * @Last Modified time: 2018-07-22 19:48:01
  */
 
 using Core.Framework.Service;
@@ -58,7 +58,7 @@ namespace Example.API
                 else
                     serviceContext.UserInfo.Language = ConfigManager.Get<string>("ui.language.default", "tr-TR");
 
-                serviceContext.Items["Application"] = "DeviceManager.API";
+                serviceContext.Items["Application"] = "Example.Service.API";
                 httpContext.Items["ServiceContext"] = serviceContext;
             }
 

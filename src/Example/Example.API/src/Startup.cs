@@ -2,7 +2,7 @@
  * @Author: Atilla Tanrikulu 
  * @Date: 2018-04-16 10:10:45 
  * @Last Modified by: Atilla Tanrikulu
- * @Last Modified time: 2018-05-18 17:18:18
+ * @Last Modified time: 2018-07-22 19:49:08
  */
 using System;
 using Microsoft.AspNetCore.Builder;
@@ -89,7 +89,7 @@ namespace Example.API
                 {
                     var error = context.Features.Get<IExceptionHandlerFeature>();
 
-                    //DeviceManager.Startup.Log.Error(error.Error);
+                    //Example.Startup.Log.Error(error.Error);
                     Console.WriteLine(error.Error);
                     string language = "tr-TR";
                     if (!string.IsNullOrEmpty(context?.Request?.Headers["Accept-Language"]))
