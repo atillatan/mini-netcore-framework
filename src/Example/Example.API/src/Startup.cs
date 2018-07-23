@@ -2,7 +2,7 @@
  * @Author: Atilla Tanrikulu 
  * @Date: 2018-04-16 10:10:45 
  * @Last Modified by: Atilla Tanrikulu
- * @Last Modified time: 2018-07-22 19:49:08
+ * @Last Modified time: 2018-05-18 17:18:18
  */
 using System;
 using Microsoft.AspNetCore.Builder;
@@ -20,7 +20,8 @@ using System.Text;
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
-using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.Swagger; 
+using Core.Framework.Util;
 
 namespace Example.API
 {
@@ -34,7 +35,7 @@ namespace Example.API
             HostingEnvironment = env;
             //Starting Service...        
             string configFilePath = Configuration.GetSection("App").GetSection("ConfigFilePath").Value;
-            Example.Service.Startup.Start($"{configFilePath}/Example.{HostingEnvironment.EnvironmentName}.config");
+            Example.Service.Startup.Start($"{configFilePath}/Example.{HostingEnvironment.EnvironmentName}.config");           
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -53,10 +54,10 @@ namespace Example.API
             services.AddAuthorization()
             .AddAuthentication("Bearer")
             .AddIdentityServerAuthentication(options =>
-            {                
-                options.Authority = "http://localhost:5000";
+            {
+                options.Authority =  ConfigManager.Get<string>("SSOAddress");                
                 options.RequireHttpsMetadata = false;
-                options.ApiName = "example.api";                
+                options.ApiName = ConfigManager.Get<string>("app.name");      
             });
 
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Fastest);
@@ -68,7 +69,7 @@ namespace Example.API
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "EXAMPLE", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = ConfigManager.Get<string>("app.name") , Version = "v1" });
             });
         }
 
@@ -88,8 +89,7 @@ namespace Example.API
                 errorApp.Run(async context =>
                 {
                     var error = context.Features.Get<IExceptionHandlerFeature>();
-
-                    //Example.Startup.Log.Error(error.Error);
+                    
                     Console.WriteLine(error.Error);
                     string language = "tr-TR";
                     if (!string.IsNullOrEmpty(context?.Request?.Headers["Accept-Language"]))
@@ -230,7 +230,7 @@ namespace Example.API
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "EXAMPLE V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", ConfigManager.Get<string>("app.name")+" V1");
                 c.RoutePrefix="api";
             });
 
