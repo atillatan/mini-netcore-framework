@@ -58,7 +58,7 @@ namespace Example.API
                 else
                     serviceContext.UserInfo.Language = ConfigManager.Get<string>("ui.language.default", "tr-TR");
 
-                serviceContext.Items["Application"] = "Example.Service.API";
+                serviceContext.Items["Application"] = "Example.API";
                 httpContext.Items["ServiceContext"] = serviceContext;
             }
 
