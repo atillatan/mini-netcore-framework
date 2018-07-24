@@ -1,13 +1,14 @@
 # Mini Netcore Framework
-You can invoke any method with Mini Netcore Framework.
-Mini netcore framework, takes method as an parameter 
 
-1. Builds InvokeContext,
-2. Executes middleware classes such as database connection or transaction middleware
-3. Puts singleton services to the InvokeContext
+You can invoke any method with Mini Netcore Framework.
+Mini netcore framework, takes method as an parameter  then;
+
+- Builds InvokeContext,
+- Executes middleware classes such as database connection or transaction middleware
+- Puts singleton services to the InvokeContext
+- It's also allows you to access InvokeContext from anywhere.
 
 We can call any method with "mini netcore framework"
-if we want to access InvokeContext from some method, we can access from anywhere.
 
 Following examples demonstrates how can we use "Mini NetCore Framework"
 
