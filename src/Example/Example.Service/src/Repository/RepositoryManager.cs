@@ -67,6 +67,57 @@ namespace Example.Service.Repository
         }
         #endregion  LanguageRepository
 
+        #region UserRepository
+        private IUserRepository _userSqlRepository;
+
+        public IUserRepository UserRepository
+        {
+            get
+            {
+                if (this._userSqlRepository == null)
+                {                    
+                    switch (ServiceContext.GetItem<DatabaseContext>("DatabaseContext").DbProviderName)
+                    {
+                        case "System.Data.PostgreSQL":
+                            //this._userSqlRepository = new PostgreSQL.UserRepository(DatabaseContext, ServiceContext);
+                            break;
+                        default://System.Data.SQLite
+                            this._userSqlRepository = new SQLite.UserRepository(DatabaseContext, ServiceContext);
+                            break;
+                    }
+
+                }
+                return _userSqlRepository;
+            }
+        }
+        #endregion UserRepository
+
+                #region RolRepository
+        private IRoleRepository _roleRepository;
+
+        public IRoleRepository RoleRepository
+        {
+            get
+            {
+                if (this._roleRepository == null)
+                {
+                    switch (ServiceContext.GetItem<DatabaseContext>("DatabaseContext").DbProviderName)
+                    {
+                        case "System.Data.PostgreSQL":
+                            //this._rolRepository = new PostgreSQL.RolRepository(DatabaseContext, ServiceContext);
+                            break;
+                        default://System.Data.SQLite
+                            this._roleRepository = new SQLite.RoleRepository(DatabaseContext, ServiceContext);
+                            break;
+                    }
+
+                }
+
+                return _roleRepository;
+            }
+        }
+        #endregion RolRepository
+
         #region TemplateRepository
         private ITemplateRepository _templateRepository;
 

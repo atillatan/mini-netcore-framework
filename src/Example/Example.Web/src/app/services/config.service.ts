@@ -55,7 +55,7 @@ export class ConfigService {
     c.redirect_url = window.location.origin;
     c.client_id = this.config.SSOClientId;
     c.response_type = 'id_token token';
-    c.scope = 'openid profile email role example.api';
+    c.scope = 'openid profile email role exampleapi';
     c.post_logout_redirect_uri = window.location.origin + '/unauthorized';
     c.forbidden_route = '/forbidden';
     c.unauthorized_route = '/unauthorized';

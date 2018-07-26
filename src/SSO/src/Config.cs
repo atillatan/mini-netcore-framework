@@ -2,7 +2,7 @@
  * @Author: Atilla Tanrikulu 
  * @Date: 2018-04-16 10:10:45 
  * @Last Modified by: Atilla Tanrikulu
- * @Last Modified time: 2018-07-22 19:27:17
+ * @Last Modified time: 2018-07-26 18:51:12
  */
 using IdentityModel;
 using IdentityServer4;
@@ -36,7 +36,7 @@ namespace SSO.Web
         public static IEnumerable<ApiResource> GetApiResources()
         {
             return new List<ApiResource> {
-                new ApiResource("example.api", "Example.API", new List<string> { "name", "role", "email" })
+                new ApiResource("exampleapi", "Example.API", new List<string> { "name", "role", "email" })
             };
         }
 
@@ -50,7 +50,7 @@ namespace SSO.Web
                     ClientId = "client",
                     ClientName = "ConsoleClient",
                     AllowedGrantTypes = GrantTypes.Implicit,
-                    ClientSecrets ={new Secret("vhs1569*".Sha256())},
+                    ClientSecrets ={new Secret("123*".Sha256())},
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
@@ -66,7 +66,7 @@ namespace SSO.Web
                     ClientId = "jsclient",
                     ClientName = "JavaScriptClient",
                     AllowedGrantTypes =  GrantTypes.Implicit,
-                    ClientSecrets ={new Secret("vhs1569*".Sha256())},
+                    ClientSecrets ={new Secret("123*".Sha256())},
                     RedirectUris = { "http://localhost:5003/callback.html","http://localhost:5003" },
                     PostLogoutRedirectUris = {  "http://localhost:5003/index.html" },
                     AllowedScopes = {
@@ -94,12 +94,12 @@ namespace SSO.Web
                     AllowedGrantTypes =  GrantTypes.Implicit,
                     AlwaysSendClientClaims=true,
                     AlwaysIncludeUserClaimsInIdToken = true,
-                    ClientSecrets ={new Secret("vhs1569*".Sha256())},
+                    ClientSecrets ={new Secret("123*".Sha256())},
                     RequireConsent = false,
                     AllowAccessTokensViaBrowser = true,
                     AllowOfflineAccess = true,
                     AccessTokenType = AccessTokenType.Jwt,
-                    AllowedScopes = { "openid", "profile", "email", "role", "example.api"},
+                    AllowedScopes = { "openid", "profile", "email", "role", "exampleapi"},
                     RedirectUris = {
                         "http://localhost:4200",
                         "http://localhost:8101"                        
@@ -127,7 +127,7 @@ namespace SSO.Web
                     ClientName = "MVC Client",
                     AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
                     RequireConsent = true,
-                    ClientSecrets ={new Secret("vhs1569*".Sha256())},
+                    ClientSecrets ={new Secret("123*".Sha256())},
                     RedirectUris = { "http://localhost:5002/signin-oidc" },
                     PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
                     AllowedScopes =
@@ -156,7 +156,7 @@ namespace SSO.Web
                     Claims = {
                         new Claim(JwtClaimTypes.Name,"Systemuser"),
                         new Claim(JwtClaimTypes.Role,"1c86feaa-5db6-4c49-b1d2-96502ac7208c"),
-                        new Claim(JwtClaimTypes.Email, "systemuser@vhselektronik.com.tr")
+                        new Claim(JwtClaimTypes.Email, "systemuser@example.com")
                     }
                 },
                 new TestUser
@@ -167,7 +167,7 @@ namespace SSO.Web
                     Claims = {
                         new Claim(JwtClaimTypes.Name,"Adminuser"),
                         new Claim(JwtClaimTypes.Role,"66007699-aa3e-4e13-843f-31f2db97905c"),
-                        new Claim(JwtClaimTypes.Email, "adminuser@vhselektronik.com.tr")                    }
+                        new Claim(JwtClaimTypes.Email, "adminuser@example.com")                    }
                 },
                 new TestUser
                 {
@@ -177,7 +177,7 @@ namespace SSO.Web
                     Claims = {
                         new Claim(JwtClaimTypes.Name,"Testuser"),
                         new Claim(JwtClaimTypes.Role,"01e5fa54-7371-4cb9-8e59-a708f4d410fd"),
-                        new Claim(JwtClaimTypes.Email, "testuser@vhselektronik.com.tr")
+                        new Claim(JwtClaimTypes.Email, "testuser@example.com")
                     }
                 }
 

@@ -2,14 +2,13 @@
  * @Author: Atilla Tanrikulu 
  * @Date: 2018-04-16 10:10:45 
  * @Last Modified by: Atilla Tanrikulu
- * @Last Modified time: 2018-07-22 19:48:20
+ * @Last Modified time: 2018-07-26 13:29:00
  */
 using System;
 using Core.Framework.Middleware;
 using Core.Framework.Service;
 using Core.Framework.Util;
 using Core.Framework;
-
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Example.DTO.System;
@@ -34,7 +33,7 @@ namespace Example.Service
 
             LoadDefaultData();
 
-            Log.Info("######  Example.Service STARTED!  #######");
+            Log.Info("######  "+ConfigManager.Get<string>("app.name")+".Service STARTED!  #######");
         }
 
         public void ConfigureServices()
@@ -87,14 +86,14 @@ namespace Example.Service
                 tSettings.Wait();
                 settingsDtoList = tSettings.Result.Data;
 
-                if (settingsDtoList == null) throw new Exception("Settings not loaded!, check your database configurations!");
+                if (settingsDtoList == null) throw new Exception("Config not loaded!, check your database configurations!");
 
                 foreach (SettingsDto _settings in settingsDtoList)
                 {
                     if (_settings?.Key != null && _settings.Val != null && !ConfigManager.Current.Configurations.ContainsKey(_settings.Key))
                         ConfigManager.Current.Configurations[_settings.Key] = _settings.Val;
                 }
-                if (log.IsDebugEnabled) log.Debug($"Settings loaded. Count:{ConfigManager.Current.Configurations.Count}");
+                if (log.IsDebugEnabled) log.Debug($"Config loaded. Count:{ConfigManager.Current.Configurations.Count}");
             }
             catch (Exception ex)
             {

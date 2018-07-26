@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ServiceResponse, PagingDto, BaseDto, ResultType } from '../code/dto';
+import { ConfigService } from './config.service';
 
 
 const httpOptions = {
@@ -12,9 +13,16 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class DeviceService {
 
-  constructor(private http: HttpClient) { }
+  private deviceUrl = null;
 
-  private deviceUrl = 'http://localhost:8101/api/device';  // URL to web api
+  constructor(
+    private http: HttpClient,
+    private cfgService: ConfigService) {
+
+    this.deviceUrl = `${this.cfgService.config.DefaultAPIAddress}/api/device`;  // URL to web api
+  }
+
+
 
   //#region Property
 

@@ -69,3 +69,18 @@ export class PagingDto {
 
     public count: number;
 }
+
+export class User extends BaseDto {
+
+    public Name: string;
+
+    public LastName: string;
+
+    public Age: number;
+
+    public BirthDate: Date;
+
+    public GenderCodeId: number;
+
+    public NationalityCodeId: number;
+}

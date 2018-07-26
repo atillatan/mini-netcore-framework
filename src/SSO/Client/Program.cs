@@ -19,7 +19,7 @@ namespace Client
         private static async Task MainAsync()
         {
            // discover endpoints from metadata
-            var disco = await DiscoveryClient.GetAsync("http://sso.vhselektronik.com.tr");
+            var disco = await DiscoveryClient.GetAsync("http://localhost:8100");
             if (disco.IsError)
             {
                 Console.WriteLine(disco.Error);
@@ -27,7 +27,7 @@ namespace Client
             }
 
             // request token
-            var tokenClient = new TokenClient(disco.TokenEndpoint, "client", "vhs1569*");
+            var tokenClient = new TokenClient(disco.TokenEndpoint, "client", "123*");
             var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync("adminuser", "123", "core.service.api");
 
             if (tokenResponse.IsError)

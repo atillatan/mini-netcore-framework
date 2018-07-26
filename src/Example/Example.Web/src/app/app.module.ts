@@ -19,17 +19,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { registerLocaleData } from '@angular/common';
 import localeTr from '@angular/common/locales/tr';
 import { ToastrModule } from 'ngx-toastr';
+import { environment } from '../environments/environment';
 import { TranslateModule, TranslateLoader, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AuthModule, OidcSecurityService, OpenIDImplicitFlowConfiguration, AuthWellKnownEndpoints } from 'angular-auth-oidc-client';
 import { AuthInterceptor } from './services/auth.Interceptor';
 import { AuthGuard } from './services/auth.guard';
-import { ApiInterceptor } from './services/api.intercepter';
+import { ApiInterceptor } from './services/api.interceptor';
 import { ConfigService } from './services/config.service';
 import { LogService } from './services/log.service';
 import { CrudService } from './services/crud.service';
 import { UserService } from './services/user.service';
+import { MessageService } from './services/message.service';
 
 import { AppComponent } from './root/app.component';
 import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
@@ -43,68 +45,38 @@ import { PropertyComponent } from './property/property.component';
 import { TemplateComponent } from './template/template.component';
 import { LanguageComponent } from './language/language.component';
 import { LanguagesComponent } from './languages/languages.component';
+import { MessagesComponent } from './messages/messages.component';
+import { UsersComponent } from './users/users.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserSearchComponent } from './user-search/user-search.component';
+import { LeftmenuComponent } from './leftmenu/leftmenu.component';
+import { UserComponent } from './user/user.component';
 
 
 export function initialize(configService: ConfigService): Function {
-  return () => configService.loadConfig(`http://localhost:8101/api/js/json/config.js`);
+  return () => configService.loadConfig(`${environment.apiUrl}/api/js/json/config.js`);
 }
 
 export function loadTranslate(http: HttpClient) {
-  return new TranslateHttpLoader(http, 'http://localhost:8101/api/js/json/languages/', '.js');
+  return new TranslateHttpLoader(http, `${environment.apiUrl}/api/js/json/languages/`, `.js`);
 }
 
 @NgModule({
-   imports: [
-      BrowserModule,
-      CommonModule,
-      HttpClientModule,
-      FormsModule,
-      ReactiveFormsModule,
-      AppRoutingModule,
-      BrowserAnimationsModule,
-      CdkTableModule,
-      MatAutocompleteModule,
-      MatBadgeModule,
-      MatBottomSheetModule,
-      MatButtonModule,
-      MatButtonToggleModule,
-      MatCardModule,
-      MatCheckboxModule,
-      MatChipsModule,
-      MatStepperModule,
-      MatDatepickerModule,
-      MatDialogModule,
-      MatDividerModule,
-      MatExpansionModule,
-      MatGridListModule,
-      MatIconModule,
-      MatInputModule,
-      MatListModule,
-      MatMenuModule,
-      MatNativeDateModule,
-      MatPaginatorModule,
-      MatProgressBarModule,
-      MatProgressSpinnerModule,
-      MatRadioModule,
-      MatRippleModule,
-      MatSelectModule,
-      MatSidenavModule,
-      MatSliderModule,
-      MatSlideToggleModule,
-      MatSnackBarModule,
-      MatSortModule,
-      MatTableModule,
-      MatTabsModule,
-      MatToolbarModule,
-      MatTooltipModule,
-      MatTreeModule,
-      Ng2Webstorage,
-      NgbModule.forRoot(),
-      AuthModule.forRoot(),
-      ToastrModule.forRoot({ closeButton: true, timeOut: 2000, positionClass: 'toast-bottom-right' }),
-      TranslateModule.forRoot({
-        loader: { provide: TranslateLoader, useFactory: loadTranslate, deps: [HttpClient] }
-      })
+  imports: [
+    BrowserModule, CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule, AppRoutingModule, BrowserAnimationsModule,
+    CdkTableModule, MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatButtonModule, MatButtonToggleModule,
+    MatCardModule, MatCheckboxModule, MatChipsModule, MatStepperModule, MatDatepickerModule, MatDialogModule,
+    MatDividerModule, MatExpansionModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
+    MatNativeDateModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule,
+    MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule,
+    MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule, MatTreeModule, Ng2Webstorage,
+    NgbModule.forRoot(),
+    AuthModule.forRoot(),
+    ToastrModule.forRoot({ closeButton: true, timeOut: 2000, positionClass: 'toast-bottom-right' }),
+    TranslateModule.forRoot({
+      loader: { provide: TranslateLoader, useFactory: loadTranslate, deps: [HttpClient] }
+    })
   ],
   declarations: [
     AppComponent,
@@ -118,7 +90,14 @@ export function loadTranslate(http: HttpClient) {
     PropertyComponent,
     TemplateComponent,
     LanguageComponent,
-    LanguagesComponent
+    LanguagesComponent,
+    UsersComponent,
+    UserDetailComponent,
+    MessagesComponent,
+    DashboardComponent,
+    UserSearchComponent,
+    LeftmenuComponent,
+    UserComponent
   ],
   providers: [
     OidcSecurityService,
@@ -127,6 +106,8 @@ export function loadTranslate(http: HttpClient) {
     AuthGuard,
     UserService,
     DeviceService,
+    MessageService,
+    CrudService,
     { provide: APP_INITIALIZER, useFactory: initialize, multi: true, deps: [ConfigService] },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },

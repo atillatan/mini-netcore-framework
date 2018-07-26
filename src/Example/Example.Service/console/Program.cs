@@ -46,8 +46,8 @@ namespace Consoleapp
             app2.appBuilder.UseDatabaseContext(options =>
             {
                 options.DbProviderName = "System.Data.SQLite";
-                options.ReadConnectionString = "Data Source=D:/ws/VHS/.config/Core.Service/CoreService.db;";
-                options.WriteConnectionString = "Data Source=D:/ws/VHS/.config/Core.Service/CoreService.db;";
+                options.ReadConnectionString = "Data Source=D:/ws/Example/.config/Core.Service/CoreService.db;";
+                options.WriteConnectionString = "Data Source=D:/ws/Example/.config/Core.Service/CoreService.db;";
             });
 
             Application.Current.Build();

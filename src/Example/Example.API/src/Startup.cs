@@ -2,7 +2,7 @@
  * @Author: Atilla Tanrikulu 
  * @Date: 2018-04-16 10:10:45 
  * @Last Modified by: Atilla Tanrikulu
- * @Last Modified time: 2018-05-18 17:18:18
+ * @Last Modified time: 2018-07-26 13:33:01
  */
 using System;
 using Microsoft.AspNetCore.Builder;
@@ -57,7 +57,7 @@ namespace Example.API
             {
                 options.Authority =  ConfigManager.Get<string>("SSOAddress");                
                 options.RequireHttpsMetadata = false;
-                options.ApiName = ConfigManager.Get<string>("app.name");      
+                options.ApiName = ConfigManager.Get<string>("app.name")+"api";                
             });
 
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Fastest);
@@ -231,7 +231,7 @@ namespace Example.API
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", ConfigManager.Get<string>("app.name")+" V1");
-                c.RoutePrefix="api";
+                c.RoutePrefix = "api";
             });
 
             app.UseMvc(routes =>

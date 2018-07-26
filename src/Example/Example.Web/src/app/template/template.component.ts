@@ -6,6 +6,7 @@ import { Location, getLocaleDateTimeFormat } from '@angular/common';
 import { LogService } from '../services/log.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfigService } from '../services/config.service';
 
 @Component({
   selector: 'app-template',
@@ -13,7 +14,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class TemplateComponent implements OnInit {
 
-  private url = 'http://localhost:8101/api/device'; // config servis ten gelecek.
+  private url = '';
 
   dtoList: any = [];
   entryDto: any = {};
@@ -25,9 +26,13 @@ export class TemplateComponent implements OnInit {
     private deviceService: DeviceService,
     private route: ActivatedRoute,
     private location: Location,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private cfgService: ConfigService
   ) {
+
+    this.url = `${this.cfgService.config.DefaultAPIAddress}/api/device`;
     this.list();
+
   }
 
   ngOnInit() {

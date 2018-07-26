@@ -1,8 +1,8 @@
 ﻿/*
  * @Author: Atilla Tanrikulu 
  * @Date: 2018-04-16 10:10:45 
- * @Last Modified by:   Atilla Tanrikulu 
- * @Last Modified time: 2018-04-16 10:10:45 
+ * @Last Modified by: Atilla Tanrikulu
+ * @Last Modified time: 2018-07-26 09:33:12
  */
 using System;
 using System.Collections.Generic;
@@ -37,10 +37,10 @@ namespace Example.API
                 config.SetBasePath(env.ContentRootPath);
                 config.AddEnvironmentVariables();
                 config.AddCommandLine(args);
-            })
-            .UseIISIntegration()
-            .UseStartup<Startup>()
+            })            
             .UseUrls("http://localhost:8101")
+            .UseStartup<Startup>()            
+            .UseIISIntegration()
             .Build();
 
             host.Run();

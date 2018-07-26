@@ -1,0 +1,80 @@
+<h2 class="test-style">CRUD Example </h2>
+
+<div>
+  <form (ngSubmit)="addUser()">
+    <!-- form-group separator -->
+    <div class="form-group row">
+      <label for="Name" class="col-sm-2 col-form-label-sm">Name</label>
+      <div class="col-sm-10">
+        <input [(ngModel)]="entry.Name" class="form-control form-control-sm" name="Name" id="Name" placeholder="Name" autocomplete="off">
+      </div>
+    </div>
+    <!-- form-group separator -->
+    <div class="form-group row">
+      <label for="LastName" class="col-sm-2 col-form-label-sm">Last Name</label>
+      <div class="col-sm-10">
+        <input [(ngModel)]="entry.LastName" class="form-control form-control-sm" name="LastName" id="LastName" placeholder="Last Name" autocomplete="off">
+      </div>
+    </div>
+    <!-- form-group separator -->
+    <div class="form-group row">
+      <label for="Age" class="col-2 col-form-label-sm">Age</label>
+      <div class="col-10">
+        <input class="form-control form-control-sm" type="text" [(ngModel)]="entry.Age" name="Age" id="Age" placeholder="Age" autocomplete="off">
+      </div>
+    </div>
+    <!-- form-group separator -->
+    <div class="form-group row">
+      <label for="BirthDate" class="col-2 col-form-label-sm">Birth Date</label>
+      <div class="col-10">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="birthDate" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+              <img src="assets/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- form-group separator -->
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label-sm"></label>
+      <div class="col-sm-10">
+        <button type="submit" class="btn btn-success" ngbTooltip="Save">
+          <i class="material-icons">save</i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<table class="table table-bordered table-sm m-0">
+  <thead class="thead-dark">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>LastName</th>
+      <th>Age</th>
+      <th>BirthDate</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tr *ngFor="let user of users">
+    <td>{{user.Id}}</td>
+    <td>{{user.Name}}</td>
+    <td>{{user.LastName | uppercase}}</td>
+    <td>{{user.Age}}</td>
+    <td>{{ user.BirthDate | date }}</td>
+    <td>
+      <button type="button" class="btn btn-outline-primary btn-sm" routerLink="/detail/{{user.Id}}">
+        <i class="material-icons">border_color</i>
+      </button>&nbsp;
+      <button type="button" class="btn btn-outline-danger btn-sm" title="delete user" (click)="delete(user)">
+        <i class="material-icons">cancel</i>
+      </button>
+    </td>
+  </tr>
+</table>

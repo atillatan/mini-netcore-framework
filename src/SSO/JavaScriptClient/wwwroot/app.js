@@ -19,12 +19,12 @@ document.getElementById("api").addEventListener("click", api, false);
 document.getElementById("logout").addEventListener("click", logout, false);
 
 var config = {
-    authority: "https://sso.vhselektronik.com.tr",
+    authority: "http://localhost:8100",
     client_id: "jsclient",
     redirect_uri: "http://localhost:5003/callback.html",
     response_type: "id_token token",
     scope:"openid profile email role core.service.api alarm.service.api",
-    post_logout_redirect_uri : "https://sso.vhselektronik.com.tr/Account/logout",
+    post_logout_redirect_uri : "https://localhost:8100/Account/logout",
 };
 var mgr = new Oidc.UserManager(config);
 

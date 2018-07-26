@@ -37,6 +37,21 @@ namespace Example.Service.Service
 
         #endregion SystemService
 
+        #region ExampleService
+
+        private ProxyService<ExampleService> _exampleService;
+        public ProxyService<ExampleService> ExampleService
+        {
+            get
+            {
+                if (this._exampleService == null)
+                    _exampleService = new ProxyService<ExampleService>(new ExampleService(ServiceContext));
+                return _exampleService;
+            }
+        }
+
+        #endregion ExampleService
+
         #region NetworkService
 
         private ProxyService<NetworkService> _networkService;

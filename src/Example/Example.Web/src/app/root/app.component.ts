@@ -82,13 +82,13 @@ export class AppComponent implements OnInit, OnDestroy {
           this.userData = data;
           const id: number = +this.userData.sub;
           // Get your user informatin form service
-          // this.userService.getUser(id).subscribe(serviceResponse => {
-          //   if (serviceResponse != null) {
-          //     this.userInfo = serviceResponse.Data;
-          //     this.sessionStorage.clear('userinfo');
-          //     this.sessionStorage.store('userinfo', this.userInfo);
-          //   }
-          // });
+          this.userService.getUser(id).subscribe(serviceResponse => {
+            if (serviceResponse != null) {
+              this.userInfo = serviceResponse.Data;
+              this.sessionStorage.clear('userinfo');
+              this.sessionStorage.store('userinfo', this.userInfo);
+            }
+          });
         }
       }
     );
@@ -98,7 +98,4 @@ export class AppComponent implements OnInit, OnDestroy {
     this.translateService.use(language + '-' + country);
     console.log('set language: ' + language);
   }
-
-
-
 }
