@@ -35,7 +35,7 @@ export class UserComponent implements OnInit {
 
   //#region CRUD Operations
 
-  postOrPut(): void {
+  postOrPut(): void {    
     if (!this.isValid(this.entryDto)) { return; }
     if (this.entryDto.Id == null) {
       this.crudService.post(this.entryDto, `${this.url}/postuser`).subscribe(serviceResponse => {

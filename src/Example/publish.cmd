@@ -1,8 +1,8 @@
 @echo off
-set ASPNETCORE_ENVIRONMENT=production
+set ASPNETCORE_ENVIRONMENT=Production
 set cpycmd=/D /I /E /F /Y /H /R 
 SET PUBLISH_PATH=dist
-SET BUILD_VERSION=1.0.0
+SET BUILD_VERSION={ "version":"1.0.0"}
 
 if NOT "%1" == "" (SET PUBLISH_PATH=%1)
 if NOT "%2" == "" (SET BUILD_VERSION=%2)
@@ -22,11 +22,11 @@ cd ../../
 
 :: Copy .config
 xcopy "../.config/example" "%PUBLISH_PATH%/win10-x64/.config/example"  %cpycmd%
-echo %BUILD_VERSION% > "%PUBLISH_PATH%\win10-x64\manifest.txt"
+echo %BUILD_VERSION% > "%PUBLISH_PATH%\win10-x64\version.json"
 
 :: Build Angular Project, output path is in the angular.json file
 cd Example.Web
-cmd /c ng build --base-href ./
+cmd /c ng build --prod --base-href ./
 cd ../
 
 :: Copy Angular project
@@ -35,3 +35,5 @@ xcopy "Example.Web/dist" "%PUBLISH_PATH%/win10-x64/wwwroot"  %cpycmd%
 :: Build nuget package
 cd ../Example.API
 dotnet pack src --include-source --output %PUBLISH_PATH% --verbosity n /p:PackageVersion=%VERSION% -c relase
+
+pause

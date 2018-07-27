@@ -2,7 +2,7 @@
  * @Author: Atilla Tanrikulu 
  * @Date: 2018-04-16 10:10:45 
  * @Last Modified by: Atilla Tanrikulu
- * @Last Modified time: 2018-05-30 13:38:32
+ * @Last Modified time: 2018-07-27 11:23:07
  */
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Example.API.Controllers
 {
     [Route("api/[controller]/[action]")]
-    // [Authorize]
+    [Authorize]
     public class ExampleController : BaseAPIController<ExampleController>
     {
         #region ExampleService.User

@@ -5,6 +5,8 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { Router, Event as RouterEvent, NavigationStart, NavigationCancel, NavigationEnd, NavigationError } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { UserService } from '../services/user.service';
+import { isDevMode } from '@angular/core';
+import { ConfigService } from '../services/config.service';
 
 
 @Component({
@@ -19,12 +21,15 @@ export class AppComponent implements OnInit, OnDestroy {
   userData: any;
   userInfo: any;
   loading = true;
+  menuColor = 'primary';
+  version = '';
 
   constructor(
     public oidcSecurityService: OidcSecurityService,
     private sessionStorage: SessionStorageService,
     private translateService: TranslateService,
     private userService: UserService,
+    private configService: ConfigService,
     router: Router
   ) {
 
@@ -43,6 +48,8 @@ export class AppComponent implements OnInit, OnDestroy {
         this.loading = false;
       }
     });
+    this.version = configService.config.Version;
+    console.log('############ DevMode: ' + isDevMode() + '  ###################');
   }
 
 
@@ -54,6 +61,9 @@ export class AppComponent implements OnInit, OnDestroy {
           this.saveUserInfo();
         }
       });
+    if (isDevMode()) {
+      this.menuColor = 'warn';
+    }
   }
 
   private doCallbackLogicIfRequired() {

@@ -70,7 +70,8 @@ namespace Example.API.Controllers
                         SSOAddress = ConfigManager.Get<string>("SSOAddress"),
                         SSOClientId = ConfigManager.Get<string>("SSOClientId"),
                         AllowedMaxExportSize = ConfigManager.Get<string>("AllowedMaxExportSize"),
-                        FileUploadPath = ConfigManager.Get<string>("FileUploadPath")
+                        FileUploadPath = ConfigManager.Get<string>("FileUploadPath"),
+                        Version = ConfigManager.Get<string>("version")
                     };
                     Response.StatusCode = 200;
                     contentResult = Content($"{JsonConvert.SerializeObject(config)}");

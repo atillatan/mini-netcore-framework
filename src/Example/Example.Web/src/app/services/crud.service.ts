@@ -35,7 +35,7 @@ export class CrudService {
 
   // Update
   put(dto: BaseDto, apiPath: string): Observable<BaseDto> {
-    return this.http.put(`${apiPath}/${dto.Id}`, dto, httpOptions).pipe(
+    return this.http.put(`${apiPath}`, dto, httpOptions).pipe(
       tap(_ => this.log(`updated dto id=${dto.Id}`)),
       catchError(this.handleError<any>('putModel'))
     );

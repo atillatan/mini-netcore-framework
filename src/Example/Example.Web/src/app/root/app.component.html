@@ -2,10 +2,10 @@
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 
-<mat-toolbar color="primary">
+<mat-toolbar color='{{menuColor}}'>
   <button mat-icon-button routerLink="/home">
     <mat-icon>home</mat-icon>
-  </button>   
+  </button>
   <button mat-button routerLink="/dashboard">Dashboard</button>
   <button mat-button routerLink="/users">Users1</button>
   <button mat-button routerLink="/user">Users2</button>
@@ -20,17 +20,14 @@
     <button mat-menu-item (click)="langChange('en','US')">English</button>
     <button mat-menu-item (click)="langChange('tr','TR')">Turkce</button>
   </mat-menu>
-  <button mat-button  *ngIf="!isAuthorized" (click)="login()">
+  <button mat-button *ngIf="!isAuthorized" (click)="login()">
     <i class="material-icons">exit_to_app</i> Login </button>
   <button mat-button *ngIf="isAuthorized" (click)="logout()">
-    <i class="material-icons">power_settings_new</i>Logout - {{userInfo.Name}}</button>
+    <i class="material-icons">power_settings_new</i>Logout - {{userInfo?.Name}}</button>
 </mat-toolbar>
- 
+
 
 <div class="animate-bottom">
   <router-outlet></router-outlet>
 </div>
-
-
-
-
+<i>Version: {{version}}</i>

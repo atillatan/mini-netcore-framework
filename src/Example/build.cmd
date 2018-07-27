@@ -7,3 +7,4 @@ cd Example.Web
 cmd /c ng build --base-href ./
 cd ../
 
+pause
