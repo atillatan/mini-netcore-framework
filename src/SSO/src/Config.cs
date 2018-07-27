@@ -91,6 +91,7 @@ namespace SSO.Web
                     ClientId = "cweb",
                     ClientName = "cweb",
                     AccessTokenLifetime = 60*60*4,
+                    IdentityTokenLifetime = 60*60*4,
                     AllowedGrantTypes =  GrantTypes.Implicit,
                     AlwaysSendClientClaims=true,
                     AlwaysIncludeUserClaimsInIdToken = true,
