@@ -1,1 +1,5 @@
-*.ts linguist-language=csharp
+
+* linguist-vendored
+*.js linguist-vendored=false
+*.ts linguist-vendored=false
+*.cs linguist-language=csharp
