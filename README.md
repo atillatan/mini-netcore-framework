@@ -41,6 +41,7 @@ Application.Current.Build();
 // run target method
 var proxy = new ProxyService<TestService>(new TestService(new ServiceContext()));
 var result = proxy.RunAsync(x => x.TestMethod2("test"));
+result.Wait();
 System.Console.WriteLine(result.Result.Data);
 ```
 
@@ -117,7 +118,7 @@ public class TestService
 
 ```
 
-## Real Word Example
+## Real World Example
 
 ```csharp
 
